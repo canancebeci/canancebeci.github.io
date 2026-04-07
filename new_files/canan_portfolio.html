@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canan Cebeci — Style B</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", -apple-system, Helvetica, sans-serif;
+  }
+  code, .mono { font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; }
+  button, input, select, textarea, a { font-family: inherit; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #4a5056;
+    background: #fff;
+  }
+  a { color: #1e4d8c; text-decoration: none; border-bottom: 1px dotted rgba(30,77,140,0.4); }
+  a:hover { border-bottom-color: transparent; }
+  h1, h2, h3 { color: #3d4449; font-weight: 300; line-height: 1.3; }
+  p { margin-bottom: 1.1em; }
+
+  /* ========== LAYOUT ========== */
+  .layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ========== LEFT SIDEBAR ========== */
+  .sidebar {
+    flex: 0 0 340px;
+    height: 100vh;
+    background-image:
+      linear-gradient(rgba(242, 240, 244, 0.82), rgba(242, 240, 244, 0.92)),
+      url('banner.jpg');
+    background-size: cover;
+    background-position: center;
+    border-right: 1px solid #e4e2e8;
+    padding: 3em 2.5em;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .sidebar .photo {
+    width: 140px;
+    height: 140px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin: 0 auto 1.4em;
+    background: linear-gradient(135deg, #5a7aa5, #2a3f5f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4em;
+    font-weight: 300;
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .sidebar .photo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .sidebar h1 {
+    color: #2a2f35;
+    font-size: 1.95em;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2em;
+  }
+  .sidebar .divider {
+    width: 50px;
+    height: 1px;
+    background: #3d4449;
+    margin: 0.4em auto 0.8em;
+  }
+  .sidebar .subtitle {
+    text-align: center;
+    color: #6a7078;
+    font-size: 1.05em;
+    margin-bottom: 1.5em;
+  }
+  .sidebar .bio {
+    font-size: 1.05em;
+    color: #6a7078;
+    line-height: 1.55;
+    margin-bottom: 2.2em;
+    text-align: center;
+  }
+  .sidebar .bio a { color: #1e4d8c; }
+
+  /* Nav menu (vertical) */
+  .sidebar nav {
+    margin-bottom: 2em;
+  }
+  .sidebar nav a {
+    display: block;
+    padding: 0.85em 1em;
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6a7078;
+    border: none;
+    border-left: 2px solid transparent;
+    transition: all 0.25s;
+    margin-bottom: 0.2em;
+  }
+  .sidebar nav a.active {
+    color: #2a2f35;
+    border-left-color: #1e4d8c;
+    background: rgba(255,255,255,0.6);
+  }
+  .sidebar nav a:hover:not(.active) {
+    color: #2a2f35;
+    border-left-color: #b8c8dc;
+  }
+
+  /* Social with captions */
+  .sidebar .social {
+    margin-top: auto;
+    padding-top: 1.5em;
+    display: flex;
+    gap: 1.2em;
+    justify-content: center;
+    border-top: 1px solid #e4e2e8;
+  }
+  .sidebar .social a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4em;
+    color: #6a7078;
+    background: transparent;
+    border: none;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .sidebar .social .icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #c8ccd0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    transition: all 0.2s;
+  }
+  .sidebar .social a:hover .icon-circle {
+    border-color: #1e4d8c;
+    color: #1e4d8c;
+    transform: translateY(-2px);
+  }
+  .sidebar .social a:hover { color: #1e4d8c; }
+  .sidebar .social svg { width: 22px; height: 22px; fill: currentColor; }
+  .sidebar .social .label {
+    font-size: 0.72em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  .content::-webkit-scrollbar { width: 8px; }
+  .content::-webkit-scrollbar-track { background: #f5f6f8; }
+  .content::-webkit-scrollbar-thumb { background: #d0d5da; border-radius: 4px; }
+  .content::-webkit-scrollbar-thumb:hover { background: #b0b5ba; }
+
+  section {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    padding: 5em 5em 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 900px;
+  }
+  /* Projects section: no snap at all — free scroll through projects */
+  #projects {
+    scroll-snap-align: none;
+    justify-content: flex-start;
+    padding-top: 4em;
+  }
+
+  .section-title {
+    font-size: 2.1em;
+    font-weight: 600;
+    color: #1a1f26;
+    margin-bottom: 1.3em;
+    letter-spacing: -0.02em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #d8dce0;
+  }
+
+  /* About section */
+  #about p { font-size: 1.05em; margin-bottom: 1.1em; }
+  #about p b { color: #1a1f26; font-weight: 600; }
+  .research-interests {
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px solid #e8eaed;
+  }
+  .ri-label {
+    display: block;
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    color: #6a7078;
+    margin-bottom: 0.8em;
+  }
+  .ri-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+  .ri-tags .tag {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #fdf0e3;
+    color: #c4661a;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  /* Projects section */
+  .project {
+    margin-bottom: 2.5em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid #eaeced;
+  }
+  .project:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+  .project h3 {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: #1a1f26;
+    margin-bottom: 1em;
+    letter-spacing: -0.01em;
+  }
+  .project-body {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2em;
+    align-items: start;
+  }
+  /* Variant: text wraps around floated carousel */
+  .project-body.wrap {
+    display: block;
+  }
+  .project-body.wrap .carousel {
+    float: left;
+    width: 320px;
+    margin: 0.3em 1.8em 0.8em 0;
+  }
+  .project-body.wrap::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .carousel {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease;
+  }
+  .carousel-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ba1a6;
+    font-style: italic;
+    font-size: 0.82em;
+    text-align: center;
+    padding: 1em;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #e8eaed;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #4a5056;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .carousel-btn:hover { background: #fff; color: #1e4d8c; }
+  .carousel-btn.prev { left: 6px; }
+  .carousel-btn.next { right: 6px; }
+  .carousel-dots {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+  }
+  .carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .carousel-dot.active { background: #1e4d8c; }
+
+  .project-desc { font-size: 1.05em; color: #4a5056; line-height: 1.6; }
+  .project-desc .hook { font-style: italic; color: #5a6068; margin-bottom: 0.7em; }
+  .project-desc p { margin-bottom: 0.7em; }
+  .status {
+    display: inline-block;
+    font-size: 0.68em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: #fff3e0;
+    color: #c67a1f;
+    padding: 0.2em 0.7em;
+    border-radius: 3px;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+  .project-refs {
+    list-style: none;
+    padding: 0;
+    margin-top: 1em;
+    font-size: 0.92em;
+    color: #6a7078;
+    line-height: 1.55;
+  }
+  .project-refs li {
+    margin-bottom: 0.4em;
+    padding-left: 1.8em;
+    text-indent: -1.8em;
+  }
+  .project-refs .ref-num { color: #9ba1a6; }
+  .project-refs i { font-style: italic; }
+  .project-refs b { color: #4a5056; font-weight: 600; }
+
+  /* Teaching section */
+  #teaching {
+    justify-content: flex-start;
+    padding-top: 4em;
+  }
+  .teaching-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5em;
+    align-items: start;
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+  }
+  .teaching-item:last-child { margin-bottom: 0; padding-bottom: 0; }
+  .teaching-logo {
+    width: 125px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6em;
+  }
+  .teaching-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .teaching-content {
+    min-width: 0;
+  }
+  .teaching-title {
+    font-size: 1.35em;
+    font-weight: 700;
+    color: #1e4d8c;
+    text-decoration: underline;
+    text-decoration-color: rgba(30, 77, 140, 0.5);
+    text-underline-offset: 3px;
+    margin-bottom: 0.5em;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+  .teaching-meta {
+    font-size: 1.05em;
+    color: #5a6068;
+    margin-bottom: 0.5em;
+  }
+  .teaching-desc {
+    font-size: 1.05em;
+    color: #4a5056;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* CV section */
+  #cv p { font-size: 1.05em; line-height: 1.6; margin-bottom: 1.5em; }
+  .cv-link {
+    display: inline-block;
+    padding: 0.85em 2em;
+    background: #e8a06b;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border: none;
+    box-shadow: 0 2px 8px rgba(232, 160, 107, 0.3);
+    transition: all 0.2s;
+  }
+  .cv-link:hover {
+    background: #d68a52;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(232, 160, 107, 0.4);
+  }
+
+  /* Page indicator dots on the right */
+  .page-indicator {
+    position: fixed;
+    right: 2em;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    z-index: 100;
+  }
+  .page-indicator button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid #c8ccd0;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s;
+  }
+  .page-indicator button.active {
+    background: #1e4d8c;
+    border-color: #1e4d8c;
+    transform: scale(1.3);
+  }
+  .page-indicator button:hover:not(.active) {
+    border-color: #1e4d8c;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    html, body { overflow: auto; height: auto; }
+    .layout { flex-direction: column; height: auto; }
+    .sidebar {
+      flex: none;
+      width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #e4e2e8;
+      padding: 2em 1.5em;
+    }
+    .sidebar .social { margin-top: 1.5em; }
+    .content {
+      height: auto;
+      overflow-y: visible;
+      scroll-snap-type: none;
+    }
+    section {
+      min-height: auto;
+      padding: 3em 1.5em;
+    }
+    .project-body { grid-template-columns: 1fr; }
+    .carousel { max-width: 240px; margin: 0 auto; }
+    .page-indicator { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="photo"><img src="profile.jpg" alt="Canan Cebeci" onerror="this.style.display='none'; this.parentNode.innerHTML='CC';"></div>
+    <h1>Canan Cebeci</h1>
+    <div class="divider"></div>
+    <div class="subtitle">PhD Student, Electrical &amp; Computer Engineering</div>
+    <p class="bio">Signal processing and machine learning for wireless communications at UC Santa Barbara.</p>
+
+    <nav>
+      <a href="#about" data-target="about" class="active">About me</a>
+      <a href="#projects" data-target="projects">Projects</a>
+      <a href="#teaching" data-target="teaching">Teaching</a>
+      <a href="#cv" data-target="cv">CV</a>
+    </nav>
+
+    <div class="social">
+      <a href="mailto:ccebeci@ucsb.edu" aria-label="Email" title="Email">
+        <span class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </span>
+        <span class="label">Email</span>
+      </a>
+      <a href="https://scholar.google.com/citations?hl=en&user=AbD-KWkAAAAJ" aria-label="Google Scholar" title="Google Scholar">
+        <span class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+        </span>
+        <span class="label">Scholar</span>
+      </a>
+      <a href="https://www.linkedin.com/in/canan-cebeci-21403534b/" aria-label="LinkedIn" title="LinkedIn">
+        <span class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </span>
+        <span class="label">LinkedIn</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="content" id="content">
+
+    <section id="about">
+      <h2 class="section-title">About me</h2>
+      <p>I'm a Ph.D. candidate in <a href="https://www.ece.ucsb.edu/" target="_blank">Electrical and Computer Engineering at UC Santa Barbara</a>, advised by <a href="https://wcsl.ece.ucsb.edu/people/upamanyu-madhow" target="_blank">Prof. Upamanyu Madhow</a> and supported as a <a href="https://www.src.org/" target="_blank">Semiconductor Research Corporation (SRC)</a> Research Scholar. Before UCSB, I earned my B.S. in Electrical and Electronics Engineering from <a href="https://ee.ku.edu.tr/" target="_blank">Koç University</a> in Istanbul, where I also completed a B.A. in Philosophy.</p>
+      <p>My research lies at the intersection of <b>signal processing</b> and <b>machine learning</b> for next-generation <b>wireless systems</b>. I'm interested in developing scalable architectures and uncovering fundamental principles that guide system design. Right now, I'm working on <b>beamspace processing for massive MIMO</b>, exploring how dimensionality reduction can enable practical modem designs, as well as <b>AI/ML-based positioning</b> using wireless digital twins built with NVIDIA Sionna.</p>
+      <p>More broadly, I care about bridging theory and practice in wireless communications: information-theoretic limits, performance versus complexity tradeoffs, and making signal processing work under real hardware constraints like low-resolution ADCs.</p>
+      <p>If any of this overlaps with your own work or interests, I'd love to hear from you ☕</p>
+      <div class="research-interests">
+        <span class="ri-label">Research interests</span>
+        <div class="ri-tags">
+          <span class="tag">Massive MIMO</span>
+          <span class="tag">Beamspace processing</span>
+          <span class="tag">FR3 / mmWave / sub-THz</span>
+          <span class="tag">Information Theory</span>
+          <span class="tag">Machine Learning for Wireless</span>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="project">
+        <h3>Positioning with Cellular MIMO Using Wireless Digital Twins</h3>
+        <div class="project-body wrap">
+          <div class="carousel" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="raytracing_example.png" alt="Ray-traced urban scene" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="positioning_diagram.png" alt="System diagram" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+            </div>
+            <button class="carousel-btn prev">&lsaquo;</button>
+            <button class="carousel-btn next">&rsaquo;</button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="project-desc">
+            <p class="hook">How can we use existing cellular infrastructure to locate users?</p>
+            <p>We are developing AI/ML-based positioning algorithms for realistic urban environments, using NVIDIA Sionna to generate synthetic channel data from site-specific wireless digital twins. Alongside the algorithmic work, we are interested in the fundamental estimation-theoretic limits on what any positioning system can achieve in these settings. The primary focus is FR3 bands. This work is a collaboration with <a href="https://tingjunchen.com" target="_blank">Prof. Tingjun Chen's group</a> at Duke University.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <h3>Beamspace Processing for Scalable Massive MU-MIMO</h3>
+        <div class="project-body wrap">
+          <div class="carousel" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="p2_pipeline.png" alt="Beamspace processing pipeline and DFT-bin energy heatmap" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p2_capacity.png" alt="Spectral efficiency: beamspace processing tracks unconstrained-complexity capacity" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p2_sparsity.png" alt="Wideband channel sparsity in spatial frequency vs frequency" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p2_tiled.png" alt="Tiled windowed beamspace architecture" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p2_ber.png" alt="BER vs SNR for tiled beamspace processing" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+            </div>
+            <button class="carousel-btn prev">&lsaquo;</button>
+            <button class="carousel-btn next">&rsaquo;</button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="project-desc">
+            <p class="hook">As arrays get larger, the computational complexity gets impossibly expensive. Can we throw most of it away and still get the same performance?</p>
+            <p>Larger antenna arrays and wider bandwidths promise higher data rates, but at the cost of prohibitive hardware and signal-processing complexity. Beamspace dimensionality reduction offers a way out: transforming the received signal into a spatial-frequency representation concentrates channel energy into a few beams, letting the receiver operate in dramatically reduced dimension. On the fundamentals side, we characterize information-theoretic limits and develop a geometric understanding of interference geometry, validated on measured 28 GHz channels. On the design side, we develop hardware-efficient architectures, including algorithms for severely quantized receivers and tiled layouts that ease packaging constraints. Our LMMSE-based adaptive multiuser detector for tiled beamspace architectures achieves lower BER than conventional LMMSE while reducing training overhead, and remains scalable under realistic power and interconnect constraints. The tiled architecture work is a collaboration with <a href="https://web.eecs.umich.edu/~zhengya/" target="_blank">Prof. Zhengya Zhang's group</a> at the University of Michigan.</p>
+          </div>
+        </div>
+        <ol class="project-refs">
+          <li><span class="ref-num">[1]</span> <b>C. Cebeci</b>, O. Delafrooz Noroozi, U. Madhow, <i>"Beamspace Dimensionality Reduction for Massive MU-MIMO: Geometric Insights and Information-Theoretic Limits,"</i> submitted for publication, 2025. <a href="https://arxiv.org/abs/2512.06234" target="_blank">arXiv:2512.06234</a>.</li>
+          <li><span class="ref-num">[2]</span> <b>C. Cebeci</b>*, O. Delafrooz*, U. Madhow, <i>"Scaling mmWave MU-MIMO: Information-Theoretic Guidance using Real-World Data,"</i> 58th Asilomar Conference on Signals, Systems and Computers, 2024. <a href="https://ieeexplore.ieee.org/abstract/document/10942628" target="_blank">[IEEE]</a></li>
+          <li><span class="ref-num">[3]</span> J. Han, <b>C. Cebeci</b>, W. Tang, Z. Zhang, U. Madhow, <i>"Tiled Beamspace Processing for Scaling mmWave Massive MU-MIMO,"</i> 2024 IEEE 100th Vehicular Technology Conference (VTC2024-Fall), Washington, DC, USA, 2024, pp. 1–6. <a href="https://ieeexplore.ieee.org/abstract/document/10757813" target="_blank">[IEEE]</a></li>
+        </ol>
+      </div>
+
+      <div class="project">
+        <h3>Wideband Hybrid Beamforming for Sub-THz Communication</h3>
+        <div class="project-body wrap">
+          <div class="carousel" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="p3_hybrid.png" alt="Tiled hybrid beamforming with two users" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p3_beampartition.png" alt="Broad beam vs partitioned narrow beams" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+            </div>
+            <button class="carousel-btn prev">&lsaquo;</button>
+            <button class="carousel-btn next">&rsaquo;</button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="project-desc">
+            <p class="hook">As we scale sub-THz networks to wider bandwidths and larger arrays, how do we design power-efficient receivers that can handle frequency-dependent beam squint and multiuser interference?</p>
+            <p>At sub-THz carriers with a large fractional bandwidth, fully digital arrays become impractical: high-speed data converters and downconversion stages dominate power consumption. We study a tiled hybrid beamforming architecture in which each tile is a phased subarray performing analog RF beamforming, followed by digital MU-MIMO processing. Using information-theoretic benchmarks, we compare RF beamforming strategies that mitigate beam squint via quadratic-phase broad beams. The encouraging finding is that simple phase-only RF beamformers paired with broad beams match or outperform more complex strategies requiring joint amplitude and phase control.</p>
+          </div>
+        </div>
+        <ol class="project-refs">
+          <li><span class="ref-num">[1]</span> A. Haddad, O. Delafrooz Noroozi, <b>C. Cebeci</b>, M. J. W. Rodwell, U. Madhow, <i>"Scaling Wideband Hybrid Beamforming for sub-THz Communication,"</i> 59th Asilomar Conference on Signals, Systems and Computers, 2025 (Invited). <a href="https://arxiv.org/abs/2512.06532" target="_blank">arXiv:2512.06532</a>.</li>
+        </ol>
+      </div>
+
+      <div class="project">
+        <h3>Fourier Analysis of Digital Beamforming with 1-bit ADCs</h3>
+        <div class="project-body wrap">
+          <div class="carousel" data-carousel>
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="p4_harmonics.png" alt="Adverse spatial harmonics in beamspace for two users" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+              <div class="carousel-slide"><img src="p4_suppression.png" alt="Suppressed harmonics with the training sequence design" style="max-width:100%;max-height:100%;object-fit:contain;"></div>
+            </div>
+            <button class="carousel-btn prev">&lsaquo;</button>
+            <button class="carousel-btn next">&rsaquo;</button>
+            <div class="carousel-dots"></div>
+          </div>
+          <div class="project-desc">
+            <p class="hook">How can we use severely quantized, energy-efficient 1-bit ADCs in massive MIMO systems without losing the Angleof Arrival information to severe spatial harmonics?</p>
+            <p>ADCs dominate the power and cost budget of digital arrays, making 1-bit quantization an appealing design choice. We develop a Fourier analysis of the spatial harmonics produced by the 1-bit nonlinearity. The analysis yields a concrete design payoff: a ramped-phase training sequence that suppresses higher-order harmonics and isolates the fundamental spatial frequency corresponding to each user's true angle of arrival.</p>
+          </div>
+        </div>
+        <ol class="project-refs">
+          <li><span class="ref-num">[1]</span> <b>C. Cebeci</b>, U. Madhow, <i>"A Fourier Analysis of Digital Beamforming with Severely Quantized mmWave Arrays,"</i> 57th Asilomar Conference on Signals, Systems and Computers, 2023. <a href="https://ieeexplore.ieee.org/abstract/document/10476900" target="_blank">[IEEE]</a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="teaching">
+      <h2 class="section-title">Teaching</h2>
+
+      <div class="teaching-item">
+        <div class="teaching-logo">
+          <img src="logo_ucsb.png" alt="UC Santa Barbara" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:0.7em;color:#9ba1a6;text-align:center;&quot;>UCSB logo</span>';">
+        </div>
+        <div class="teaching-content">
+          <h3 class="teaching-title">Teaching Assistant, ECE 146B, UCSB, Winter 2026</h3>
+          <p class="teaching-meta">Undergraduate course, <i>Electrical and Computer Engineering, UC Santa Barbara</i>, 2026</p>
+          <p class="teaching-desc">Advanced Topics in Wireless Systems by Prof. Upamanyu Madhow.</p>
+        </div>
+      </div>
+
+      <div class="teaching-item">
+        <div class="teaching-logo">
+          <img src="logo_ucsb.png" alt="UC Santa Barbara" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:0.7em;color:#9ba1a6;text-align:center;&quot;>UCSB logo</span>';">
+        </div>
+        <div class="teaching-content">
+          <h3 class="teaching-title">Teaching Assistant, ECE 146A, UCSB, Fall 2025</h3>
+          <p class="teaching-meta">Undergraduate course, <i>Electrical and Computer Engineering, UC Santa Barbara</i>, 2025</p>
+          <p class="teaching-desc">Digital Communication Fundamentals by Prof. Upamanyu Madhow.</p>
+        </div>
+      </div>
+
+      <div class="teaching-item">
+        <div class="teaching-logo">
+          <img src="logo_ucsb.png" alt="UC Santa Barbara" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:0.7em;color:#9ba1a6;text-align:center;&quot;>UCSB logo</span>';">
+        </div>
+        <div class="teaching-content">
+          <h3 class="teaching-title">Teaching Assistant, ECE 139, UCSB, Spring 2022</h3>
+          <p class="teaching-meta">Undergraduate course, <i>Electrical and Computer Engineering, UC Santa Barbara</i>, 2022</p>
+          <p class="teaching-desc">Probability and Statistics by Prof. Kenneth Rose.</p>
+        </div>
+      </div>
+
+      <div class="teaching-item">
+        <div class="teaching-logo">
+          <img src="logo_ucsb.png" alt="UC Santa Barbara" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:0.7em;color:#9ba1a6;text-align:center;&quot;>UCSB logo</span>';">
+        </div>
+        <div class="teaching-content">
+          <h3 class="teaching-title">Teaching Assistant, ECE 130B, UCSB, Winter 2022</h3>
+          <p class="teaching-meta">Undergraduate course, <i>Electrical and Computer Engineering, UC Santa Barbara</i>, 2022</p>
+          <p class="teaching-desc">Discrete-Time Signal Analysis and Processing by Prof. Upamanyu Madhow.</p>
+        </div>
+      </div>
+
+      <div class="teaching-item">
+        <div class="teaching-logo">
+          <img src="logo_koc.png" alt="Koç University Office of Learning and Teaching">
+        </div>
+        <div class="teaching-content">
+          <h3 class="teaching-title">Tutor, Koç University, Istanbul, Turkey, 2018 – 2019</h3>
+          <p class="teaching-meta">Office of Learning and Teaching, <i>Koç University</i>, 2018 – 2019</p>
+          <p class="teaching-desc">Held review sessions before exams and office hours to help students and solve example problems for ELEC 201 (Signals and Systems, Spring 2018 – Fall 2019) and ENGR 200 (Probability and Random Variables for Engineers, Spring 2019).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv">
+      <h2 class="section-title">CV</h2>
+      <p>You can find my full curriculum vitae below (Last updated: April 2026). Please don't hesitate to reach out with questions, thank you!</p>
+      <a href="Canan_Cebeci_CV_0426.pdf" target="_blank" class="cv-link">Download my CV</a>
+    </section>
+
+  </div>
+</div>
+
+<div class="page-indicator">
+  <button data-target="about" class="active" aria-label="About me"></button>
+  <button data-target="projects" aria-label="Projects"></button>
+  <button data-target="teaching" aria-label="Teaching"></button>
+  <button data-target="cv" aria-label="CV"></button>
+</div>
+
+<script>
+(function() {
+  var contentEl = document.getElementById('content');
+  var navLinks = document.querySelectorAll('.sidebar nav a[data-target]');
+  var indicatorBtns = document.querySelectorAll('.page-indicator button[data-target]');
+  var sections = [];
+  for (var i = 0; i < navLinks.length; i++) {
+    var id = navLinks[i].getAttribute('data-target');
+    var el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el });
+  }
+
+  function setActive(id) {
+    for (var i = 0; i < navLinks.length; i++) {
+      if (navLinks[i].getAttribute('data-target') === id) navLinks[i].classList.add('active');
+      else navLinks[i].classList.remove('active');
+    }
+    for (var j = 0; j < indicatorBtns.length; j++) {
+      if (indicatorBtns[j].getAttribute('data-target') === id) indicatorBtns[j].classList.add('active');
+      else indicatorBtns[j].classList.remove('active');
+    }
+  }
+
+  function scrollToSection(id) {
+    var target = document.getElementById(id);
+    if (!target) return;
+    // Use scrollIntoView with smooth behavior — works with scroll-snap
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActive(id);
+  }
+
+  // Click handlers for sidebar nav
+  for (var i = 0; i < navLinks.length; i++) {
+    (function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        scrollToSection(link.getAttribute('data-target'));
+      });
+    })(navLinks[i]);
+  }
+
+  // Click handlers for page indicator dots
+  for (var i = 0; i < indicatorBtns.length; i++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        scrollToSection(btn.getAttribute('data-target'));
+      });
+    })(indicatorBtns[i]);
+  }
+
+  // Scrollspy — detect which section is currently in view
+  function updateActive() {
+    try {
+      if (!contentEl) return;
+      var contentRect = contentEl.getBoundingClientRect();
+      // Use a trigger line 1/3 from the top of the content area
+      var triggerY = contentRect.top + contentRect.height * 0.33;
+      var activeId = sections.length > 0 ? sections[0].id : null;
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].el.getBoundingClientRect();
+        if (rect.top <= triggerY) {
+          activeId = sections[i].id;
+        }
+      }
+      // "At the bottom" — force last section active
+      if (contentEl.scrollTop + contentEl.clientHeight >= contentEl.scrollHeight - 10) {
+        if (sections.length > 0) activeId = sections[sections.length - 1].id;
+      }
+      if (activeId) setActive(activeId);
+    } catch (err) {
+      console.error('updateActive error', err);
+    }
+  }
+  contentEl.addEventListener('scroll', updateActive, { passive: true });
+  setInterval(updateActive, 80);
+  updateActive();
+
+  // ========== CAROUSELS ==========
+  var carousels = document.querySelectorAll('[data-carousel]');
+  for (var c = 0; c < carousels.length; c++) {
+    (function(carousel) {
+      var track = carousel.querySelector('.carousel-track');
+      var slides = carousel.querySelectorAll('.carousel-slide');
+      var prevBtn = carousel.querySelector('.prev');
+      var nextBtn = carousel.querySelector('.next');
+      var dotsContainer = carousel.querySelector('.carousel-dots');
+      var index = 0;
+
+      for (var s = 0; s < slides.length; s++) {
+        (function(si) {
+          var dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (si === 0 ? ' active' : '');
+          dot.addEventListener('click', function(e) {
+            e.stopPropagation();
+            goTo(si);
+          });
+          dotsContainer.appendChild(dot);
+        })(s);
+      }
+      var dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        for (var d = 0; d < dots.length; d++) {
+          if (d === index) dots[d].classList.add('active');
+          else dots[d].classList.remove('active');
+        }
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(index - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(index + 1); });
+
+      var startX = 0;
+      track.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) goTo(index + (dx < 0 ? 1 : -1));
+      });
+    })(carousels[c]);
+  }
+})();
+</script>
+
+</body>
+</html>
